@@ -1,0 +1,49 @@
+#########################################################################################
+#                                                                                       #
+# SwiftLint configuration file.                                                         #
+#                                                                                       #
+# To get an overview of all configuration possibilities check:                          #
+# https://github.com/realm/SwiftLint                                                    #
+#                                                                                       #
+# To check the project's config it might be easier to use '$swiftlint rules'            #
+# inside the projects directory instead of trying to parse this file with brainpower.   # 
+#                                                                                       # 
+#########################################################################################
+
+# We don't want to use swiftlint for our external dependencies.
+excluded:
+    - Pods
+
+opt_in_rules:
+    - force_unwrapping
+
+disabled_rules:
+    - vertical_whitespace
+    - unused_closure_parameter
+    - shorthand_operator
+
+# Limit line length to '120' characters.
+# We need to specify both to avoid warnings at 100. (Default value)
+line_length:
+    warning: 120
+    error: 120
+
+# Force unwrapping should be avoided like the plague.
+force_unwrapping: error
+
+# Even so they might seem to be not that important we want a clean code base right from the beginning.
+# And even more important for the lazy one's: This will avoid superfluous style discussions and comments in PR's.
+trailing_newline: error
+trailing_semicolon: error
+trailing_whitespace:
+    severity: error
+    ignores_empty_lines: false
+
+custom_rules:
+    # To avoid visual noise we eschew the auto-generated Xcode template documentation.
+    xcode_template_documentation:
+        regex: '^\/{2}\n\/{2}\s{2}[A-z]*.swift\n\/{2}\s*[A-z]*\n\/{2}\n\/{2}\s{2}Created'
+        match_kinds:
+            - comment
+        message: "No need for the xcode template documentation. Please remove it!"
+        severity: error
